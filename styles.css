@@ -184,3 +184,52 @@ button:disabled:hover {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
+/* Checkout Section */
+h3 {
+  text-align: center;
+}
+
+.checkout-section {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  margin-top: 2rem;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.radio-group label {
+  display: inline-block;
+  margin-top: 5px;
+  margin-right: 15px;
+  text-align: center;
+}
+
+.checkout-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.checkout-btn:hover {
+  background: #218838;
+}
