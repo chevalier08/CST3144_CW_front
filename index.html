@@ -160,9 +160,19 @@ let app = new Vue({
         if (a[this.sortBy] > b[this.sortBy]) return 1 * modifier;
         return 0;
       });
+    },
+    validName() {
+    const nameRegex = /^[A-Za-z\s]+$/;
+    return nameRegex.test(this.customer.name.trim());
+    },
+    validPhone() {
+    const phoneRegex = /^[0-9]{10}$/;
+    return phoneRegex.test(this.customer.phone.trim());
+    },
+    sortOrderIcon() {
+      return this.sortOrder === 'asc' ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down';
     }
   },
-
   methods: {
     addToCart(lesson) {
       if (lesson.spaces > 0) {
@@ -180,6 +190,26 @@ let app = new Vue({
             this.showCart = false;
             this.showCheckout = false;
         }
+    }, 
+
+    goBackToLessons() {
+      this.showLessons = true;
+      this.orderPlaced = false;
+    },
+    removeFromCart(index) {
+      const lesson = this.cart[index];
+      const original = this.lessons.find(l => l.id === lesson.id);
+      if (original) original.spaces++;
+      this.cart.splice(index, 1);
+    },
+    toggleSortOrder() {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    },
+    submitOrder() {
+      if (this.validName && this.validPhone) {
+        this.orderPlaced = true;
+        this.cart = [];
+      }
     }
   }
 });
