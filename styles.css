@@ -96,6 +96,20 @@ body {
   transform: scale(1.05);
 }
 
+/* Sorting Section */
+.sort-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.sort-section select,
+.sort-btn {
+  padding: 0.4rem 0.6rem;
+  margin: 0 0.3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 /* Lessons */
 .lessons-grid {
   display: grid;

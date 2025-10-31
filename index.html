@@ -23,6 +23,20 @@
     </button>
   </header>
 
+  <!-- Sorting -->
+  <div v-if="showLessons" class="sort-section">
+    <label>Sort by:</label>
+    <select v-model="sortBy">
+      <option value="subject">Subject</option>
+      <option value="location">Location</option>
+      <option value="price">Price</option>
+      <option value="spaces">Spaces</option>
+    </select>
+    <button class="sort-btn" v-on:click="toggleSortOrder">
+      {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }} <i v-bind:class="sortOrderIcon"></i>
+    </button>
+  </div>
+
   <!-- Lessons List -->
   <div v-if="showLessons" class="lessons-grid">
     <div class="lesson-card" v-for="lesson in sortedLessons" v-bind:key="lesson.id">
@@ -73,7 +87,19 @@ let app = new Vue({
     ],
     cart: [],
     customer: { name: '', phone: '', country: '', address: '', city: '', zip:'' },
-    orderPlaced: false
+    orderPlaced: false,
+    sortBy: 'subject',
+    sortOrder: 'asc'
+  },
+  computed: {
+    sortedLessons() {
+      return this.lessons.slice().sort((a, b) => {
+        let modifier = this.sortOrder === 'asc' ? 1 : -1;
+        if (a[this.sortBy] < b[this.sortBy]) return -1 * modifier;
+        if (a[this.sortBy] > b[this.sortBy]) return 1 * modifier;
+        return 0;
+      });
+    }
   },
 
   methods: {
