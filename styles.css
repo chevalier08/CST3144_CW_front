@@ -259,3 +259,17 @@ h3 {
   color: #ffffff;
   margin-bottom: 1rem;
 }
+
+.back-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.back-btn:hover {
+  background: #5a6268;
+}
