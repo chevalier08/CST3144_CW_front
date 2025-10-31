@@ -22,5 +22,79 @@
       <span class="fa-solid fa-cart-shopping"></span> Cart ({{ cart.length }})
     </button>
   </header>
-  
+
+  <!-- Lessons List -->
+  <div v-if="showLessons" class="lessons-grid">
+    <div class="lesson-card" v-for="lesson in sortedLessons" v-bind:key="lesson.id">
+      <i :class="lesson.icon + ' lesson-icon'"></i>
+      <h3>{{ lesson.subject }}</h3>
+      <p><i class="fa-solid fa-location-dot"></i> {{ lesson.location }}</p>
+      <p><i class="fa-solid fa-money-bill-1-wave"></i> Price: £{{ lesson.price }}</p>
+      <p><i class="fa-solid fa-users"></i> Spaces: {{ lesson.spaces }}</p>
+      <button class="add-cart-btn" v-bind:disabled="lesson.spaces === 0" v-on:click="addToCart(lesson)">
+        <span class="fa-solid fa-cart-plus"></span> Add to Cart
+      </button>
+    </div>
+  </div>
+
+  <!-- Cart Page -->
+  <div v-else class="cart-page">
+    <h2><i class="fa-solid fa-cart-shopping"></i> Your Cart</h2>
+    
+    <div v-if="!orderPlaced">
+      <div v-if="cart.length > 0" class="cart-list">
+        <div class="cart-item" v-for="(item, index) in cart" v-bind:key="index">
+          <p><strong>{{ item.subject }}</strong> — {{ item.location }} (£{{ item.price }})</p>
+          <button class="remove-btn" v-on:click="removeFromCart(index)">
+            <i class="fa-solid fa-trash"></i> Remove
+          </button>
+        </div>
+      </div>
+    </div>
+
 </div>
+
+<script>
+let app = new Vue({
+  el: '#lessonStore',
+  data: {
+    showLessons: true,
+    lessons: [
+      { id: 1, subject: 'Math', location: 'London', price: 100, spaces: 5, icon: 'fa-solid fa-calculator' },
+      { id: 2, subject: 'Physics', location: 'Manchester', price: 120, spaces: 5, icon: 'fa-solid fa-atom' },
+      { id: 3, subject: 'English', location: 'London', price: 90, spaces: 5, icon: 'fa-solid fa-book' },
+      { id: 4, subject: 'Biology', location: 'Oxford', price: 110, spaces: 5, icon: 'fa-solid fa-dna' },
+      { id: 5, subject: 'Chemistry', location: 'Cambridge', price: 115, spaces: 5, icon: 'fa-solid fa-flask' },
+      { id: 6, subject: 'History', location: 'Liverpool', price: 95, spaces: 5, icon: 'fa-solid fa-landmark' },
+      { id: 7, subject: 'Geography', location: 'Bristol', price: 100, spaces: 5, icon: 'fa-solid fa-globe' },
+      { id: 8, subject: 'Art', location: 'London', price: 130, spaces: 5, icon: 'fa-solid fa-paint-brush' },
+      { id: 9, subject: 'Music', location: 'Manchester', price: 120, spaces: 5, icon: 'fa-solid fa-music' },
+      { id: 10, subject: 'Computer Science', location: 'Oxford', price: 150, spaces: 5, icon: 'fa-solid fa-laptop-code' }
+    ],
+    cart: [],
+    customer: { name: '', phone: '', country: '', address: '', city: '', zip:'' },
+    orderPlaced: false
+  },
+
+  methods: {
+    addToCart(lesson) {
+      if (lesson.spaces > 0) {
+        this.cart.push({ ...lesson });
+        lesson.spaces--;
+      }
+    },
+    toggleCart() {
+
+        if (this.showLessons) {
+            this.showLessons = false;
+            this.showCart = true;
+        } else {
+            this.showLessons = true;
+            this.showCart = false;
+            this.showCheckout = false;
+        }
+    }
+  }
+});
+</script>
+</body>
