@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+</head>
+<body>
+<div id="lessonStore" class="container">
+
+
+  <!-- Header -->
+  <header class="top-bar">
+    <div class="logo-title">
+      <img src="image\logo.png" alt="Logo" class="logo">
+      <h1>TheUKAcademy</h1>
+    </div>
+    <button class="cart-btn" v-on:click="toggleCart" v-bind:disabled="cart.length === 0">
+      <span class="fa-solid fa-cart-shopping"></span> Cart ({{ cart.length }})
+    </button>
+  </header>
+  
+</div>
