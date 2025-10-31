@@ -185,6 +185,20 @@ button:disabled:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
+.remove-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.remove-btn:hover {
+  background: #c0392b;
+}
+
 /* Checkout Section */
 h3 {
   text-align: center;
