@@ -118,6 +118,15 @@
     </form>
     </div>
 
+    <div v-else>
+        <p>Your cart is empty.</p>
+      </div>
+
+      <button class="back-btn" v-on:click="goBackToLessons">
+        <i class="fa-solid fa-arrow-left"></i> Back to Lessons
+      </button>
+    </div>
+
 </div>
 
 <script>
