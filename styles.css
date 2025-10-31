@@ -164,3 +164,8 @@ button:disabled {
 button:disabled:hover {
   background-color: #ccc !important;
 }
+
+/* Cart */
+.cart-page h2 {
+  text-align: center;
+}
