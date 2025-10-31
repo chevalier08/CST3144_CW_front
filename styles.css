@@ -247,3 +247,15 @@ h3 {
 .checkout-btn:hover {
   background: #218838;
 }
+
+/* Order Message */
+.order-message {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
