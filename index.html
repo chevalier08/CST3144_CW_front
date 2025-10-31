@@ -66,6 +66,58 @@
       </div>
     </div>
 
+    <!-- Checkout Section -->
+    <div class="checkout-section">
+    <h3>Checkout Information</h3>
+    <form @submit.prevent="submitOrder">
+        <div class="form-group">
+        <label><i class="fa-solid fa-user"></i> Name</label>
+        <input type="text" v-model="customer.name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+        <label><i class="fa-solid fa-phone"></i> Phone (+44)</label>
+        <input type="number" v-model="customer.phone" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+            <label><i class="fa-solid fa-earth-europe"></i> Select Country:</label>
+            <div class="radio-group">
+            <label>
+                <input type="radio" value="England" v-model="customer.country">
+                England
+            </label>
+            <label>
+                <input type="radio" value="Wales" v-model="customer.country">
+                Wales
+            </label>
+            <label>
+                <input type="radio" value="Scotland" v-model="customer.country">
+                Scotland
+            </label>
+            <label>
+                <input type="radio" value="Northern Ireland" v-model="customer.country">
+                Northern Ireland
+            </label>
+            </div>
+        </div>
+        <div class="form-group">
+        <label><i class="fa-solid fa-house"></i> Address</label>
+        <input type="text" v-model="customer.address" placeholder="Enter your address" required>
+        </div>
+        <div class="form-group">
+        <label><i class="fa-solid fa-city"></i> City</label>
+        <input type="text" v-model="customer.city" placeholder="Enter your city" required>
+        </div>
+        <div class="form-group">
+        <label><i class="fa-solid fa-envelope"></i> ZIP Code</label>
+        <input type="number" v-model="customer.zip" placeholder="Enter your ZIP Code" required>
+        </div>
+        <button type="submit" class="checkout-btn" v-bind:disabled="!validName || !validPhone">
+            <i class="fa-solid fa-credit-card"></i> Confirm Checkout
+        </button>
+
+    </form>
+    </div>
+
 </div>
 
 <script>
