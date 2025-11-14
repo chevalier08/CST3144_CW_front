@@ -219,11 +219,41 @@
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     },
     submitOrder() {
-      if (this.validName && this.validPhone) {
-        this.orderPlaced = true;
-        this.cart = [];
+      if (!this.validName || !this.validPhone) {
+        return;
       }
+
+      // Extract correct lesson IDs from cart
+      const lessonIDs = this.cart.map(item => item._id);
+
+      
+      const orderData = {
+        name: this.customer.name,
+        phone: this.customer.phone,
+        lessonIDs: lessonIDs,
+        spaces: this.cart.length
+      };
+
+      //POST request
+      fetch(`${apiURL}/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("Order created:", data);
+
+          
+          this.orderPlaced = true;
+          this.cart = [];
+        })
+        .catch(err => {
+          console.error("Error posting order:", err);
+          alert("There was an error placing your order.");
+        });
     }
+
   }
   });
 </script>
