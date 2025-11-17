@@ -189,10 +189,11 @@
 
     addToCart(lesson) {
       if (lesson.spaces > 0) {
-        this.cart.push({ ...lesson });
         lesson.spaces--;
+        this.cart.push(JSON.parse(JSON.stringify(lesson)));
       }
     },
+
     toggleCart() {
 
         if (this.showLessons) {
@@ -219,40 +220,49 @@
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     },
     submitOrder() {
-      if (!this.validName || !this.validPhone) {
-        return;
-      }
+        if (!this.validName || !this.validPhone) return;
 
-      // Extract correct lesson IDs from cart
-      const lessonIDs = this.cart.map(item => item._id);
+        const lessonIDs = this.cart.map(item => item._id);
 
-      
-      const orderData = {
-        name: this.customer.name,
-        phone: this.customer.phone,
-        lessonIDs: lessonIDs,
-        spaces: this.cart.length
-      };
+        const orderData = {
+          name: this.customer.name,
+          phone: this.customer.phone,
+          lessonIDs: lessonIDs,
+          spaces: this.cart.length
+        };
 
-      //POST request
-      fetch(`${apiURL}/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData)
-      })
+        // POST order
+        fetch(`${apiURL}/orders`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData)
+        })
         .then(res => res.json())
         .then(data => {
           console.log("Order created:", data);
 
-          
+          // PUT updates for lesson spaces
+          const updateRequests = this.cart.map(item => {
+            return fetch(`${apiURL}/lessons/${item._id}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ spaces: item.spaces })
+            });
+          });
+
+          return Promise.all(updateRequests);
+        })
+        .then(() => {
+          console.log("All lessons updated in DB");
           this.orderPlaced = true;
           this.cart = [];
+          this.fetchLessons();
         })
         .catch(err => {
-          console.error("Error posting order:", err);
+          console.error("Order error:", err);
           alert("There was an error placing your order.");
         });
-    }
+      }
 
   }
   });
