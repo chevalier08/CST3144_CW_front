@@ -23,6 +23,18 @@
     </button>
   </header>
 
+  <!-- Search Bar -->
+<div v-if="showLessons" class="search-section">
+  <input 
+    type="text" 
+    v-model="searchQuery" 
+    @input="searchLessons"
+    placeholder="Search lessons..."
+    class="search-input"
+  >
+</div>
+
+
   <!-- Sorting -->
   <div v-if="showLessons" class="sort-section">
     <label>Sort by:</label>
@@ -149,7 +161,9 @@
     customer: { name: '', phone: '', country: '', address: '', city: '', zip:'' },
     orderPlaced: false,
     sortBy: 'subject',
-    sortOrder: 'asc'
+    sortOrder: 'asc',
+    searchQuery: ""
+
   },
 
   created() {
@@ -262,7 +276,24 @@
           console.error("Order error:", err);
           alert("There was an error placing your order.");
         });
+      },
+
+      searchLessons() {
+        const q = this.searchQuery.trim();
+
+        if (q === "") {
+          this.fetchLessons();
+          return;
+        }
+
+        fetch(`${apiURL}/search?query=${encodeURIComponent(q)}`)
+          .then(res => res.json())
+          .then(data => {
+            this.lessons = data;
+          })
+          .catch(err => console.error("Search error:", err));
       }
+
 
   }
   });
